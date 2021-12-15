@@ -4,6 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+public enum AccEnum
+{
+    KisaVadeli = 1,
+    UzunVadeli = 2,
+    Ozel = 3,
+    Cari = 4
+}
+
 namespace BankApp.Models
 {
     public class BankAccount
@@ -14,41 +22,41 @@ namespace BankApp.Models
         public CheckingAccount CheckingAccounts { get; set; }
 
         //Kısa vadeli hesap listesi
-        public List<ShortDepositAccount> ShortDepositAccounts { get; set; }
+        public ShortDepositAccount ShortDepositAccounts { get; set; }
 
         //Uzun vadeli hesap listesi
-        public List<LongDepositAccount> LongDepositAccounts { get; set; }
+        public LongDepositAccount LongDepositAccounts { get; set; }
 
         //Özel hesap listesi
-        public List<SpecialDepositAccount> SpecialDepositAccounts { get; set; }
+        public SpecialDepositAccount SpecialDepositAccounts { get; set; }
 
         public class ShortDepositAccount
         {
-            public string AccountName { get; set; }
+            public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
-            public int MinRequiredMoney { get; set; } = 5000;
-            public int IncomeRatio { get; set; } = 15;
+            public int MinRequiredMoney { get; set; }
+            public int IncomeRatio { get; set; }
         }
 
         public class SpecialDepositAccount
         {
-            public string AccountName { get; set; }
+            public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
-            public int MinRequiredMoney { get; set; } = 5000;
-            public int IncomeRatio { get; set; } = 15;
+            public int MinRequiredMoney { get; set; }
+            public int IncomeRatio { get; set; }
         }
 
         public class LongDepositAccount
         {
-            public string AccountName { get; set; }
+            public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
-            public int MinRequiredMoney { get; set; } = 10000;
-            public int IncomeRatio { get; set; } = 17;
+            public int MinRequiredMoney { get; set; }
+            public int IncomeRatio { get; set; }
         }
 
         public class CheckingAccount
         {
-            public string AccountName { get; set; }
+            public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
         }
 
@@ -57,7 +65,35 @@ namespace BankApp.Models
             account.CheckingAccounts = new CheckingAccount();
             account.IdentityNumber = identityNumber;
             account.CheckingAccounts.Balance = 0;
-            account.CheckingAccounts.AccountName = "Vadesiz Hesabım";
+            account.CheckingAccounts.AccountName = AccEnum.Cari;
+        }
+
+        public void CreateAccount(BankAccount account, string amount)
+        {
+            if (amount == "1")
+            {
+                account.ShortDepositAccounts = new ShortDepositAccount();
+                account.ShortDepositAccounts.AccountName = AccEnum.KisaVadeli;
+                account.ShortDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.ShortDepositAccounts.IncomeRatio = 15;
+                account.ShortDepositAccounts.MinRequiredMoney = 5000;
+            }
+            else if (amount == "2")
+            {
+                account.LongDepositAccounts = new LongDepositAccount();
+                account.LongDepositAccounts.AccountName = AccEnum.UzunVadeli;
+                account.LongDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.LongDepositAccounts.IncomeRatio = 17;
+                account.LongDepositAccounts.MinRequiredMoney = 10000;
+            }
+            else if (amount == "3")
+            {
+                account.SpecialDepositAccounts = new SpecialDepositAccount();
+                account.SpecialDepositAccounts.AccountName = AccEnum.Ozel;
+                account.SpecialDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.SpecialDepositAccounts.IncomeRatio = 10;
+                account.SpecialDepositAccounts.MinRequiredMoney = 0;
+            }
         }
 
         public void DepositMoney(BankAccount account, string amount)

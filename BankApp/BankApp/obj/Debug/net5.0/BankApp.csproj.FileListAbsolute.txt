@@ -38,3 +38,11 @@ C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.
 C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.dll
 C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\ref\BankApp.dll
 C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.pdb
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.exe
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.deps.json
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.runtimeconfig.json
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.runtimeconfig.dev.json
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.dll
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\ref\BankApp.dll
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\bin\Debug\net5.0\BankApp.pdb
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.genruntimeconfig.cache

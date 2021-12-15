@@ -3,23 +3,17 @@ using System;
 
 namespace BankApp
 {
-    public enum AccEnum
-    {
-        KisaVadeli = 1,
-        UzunVadeli = 2,
-        Ozel = 3,
-        Cari = 4
-    }
-
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("# Hoşgeldiniz # \n Giriş yapmak için TC Kimlik Numaranızı giriniz:");
+            Console.WriteLine("^^ Hoşgeldiniz ^^ \n Giriş yapmak için TC Kimlik Numaranızı giriniz:");
             var identityNumber = Console.ReadLine();
             var acc = new BankAccount();
             acc.LoginAccount(acc, identityNumber);
+            Console.WriteLine("#######################################");
             Console.WriteLine("İşlem yapmak için bir sayı tuşlayın.");
+            Console.WriteLine("#######################################");
             ShowDialogMenu(0);
             var menuKey = Console.ReadLine();
             while (menuKey != "9")
@@ -29,25 +23,22 @@ namespace BankApp
                 {
                     Console.WriteLine("1 = Kısa Vadeli Hesap \n ******************** \n " +
                      "2 = Uzun Vadeli Hesap \n ******************** \n " +
-                     "3 = Özel Hesap \n ******************** \n " +
-                     "4 = Cari Hesap \n ******************** \n ");
-
+                     "3 = Özel Hesap");
                     var amount = Console.ReadLine();
                     MakeOperation(acc, int.Parse(menuKey), amount);
-                   
                     ShowDialogMenu(0);
                 }
                 else if (menuKey == "2" || menuKey == "3")
                 {
                     var amount = Console.ReadLine();
                     MakeOperation(acc, int.Parse(menuKey), amount);
+                    Console.WriteLine("#######################################");
                     Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance}");
+                    Console.WriteLine("#######################################");
                     ShowDialogMenu(0);
                 }
                 menuKey = Console.ReadLine();
-
             }
-
         }
 
         public static void ShowDialogMenu(int menuKey)
@@ -63,17 +54,22 @@ namespace BankApp
                       "6 = Çekiliş");
                     break;
                 case 1:
-                    Console.WriteLine("Hesap Açma");
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Hesap türü seçiniz:");
+                    Console.WriteLine("#######################################");
                     break;
                 case 2:
+                    Console.WriteLine("#######################################");
                     Console.WriteLine("Yatırmak istediğiniz tutarı giriniz:");
+                    Console.WriteLine("#######################################");
                     break;
                 case 3:
+                    Console.WriteLine("#######################################");
                     Console.WriteLine("Çekmek istediğiniz tutarı giriniz:");
+                    Console.WriteLine("#######################################");
                     break;
                 default:
                     break;
-
             }
         }
 
@@ -82,24 +78,56 @@ namespace BankApp
             switch (menuKey)
             {
                 case 1:
-                    acc.DepositMoney(acc, amount);
-                    Console.WriteLine("Bakiye eklendi.");
+                    if (amount == "1" && acc.CheckingAccounts.Balance >= 5000)
+                    {
+                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("#######################################");
+                        Console.WriteLine("Kısa Vadeli hesap oluşturuldu.");
+                        Console.WriteLine("#######################################");
+                        break;
+                    } 
+                    else if (amount == "2" && acc.CheckingAccounts.Balance >= 10000)
+                    {
+                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("#######################################");
+                        Console.WriteLine("Uzun Vadeli hesap oluşturuldu.");
+                        Console.WriteLine("#######################################");
+                        break;
+                    }
+                    else if (amount == "3" && acc.CheckingAccounts.Balance >= 0)
+                    {
+                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("#######################################");
+                        Console.WriteLine("Özel hesap oluşturuldu.");
+                        Console.WriteLine("#######################################");
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("#######################################");
+                        Console.WriteLine("Hata! Lütfen bakiyenizi kontrol ediniz.");
+                        Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance}");
+                        Console.WriteLine("#######################################");
+                    }
                     break;
                 case 2:
                     acc.DepositMoney(acc, amount);
+                    Console.WriteLine("#######################################");
                     Console.WriteLine("Bakiye eklendi.");
+                    Console.WriteLine("#######################################");
                     break;
                 case 3:
                     if (acc.CheckingAccounts.Balance < int.Parse(amount))
                     {
+                        Console.WriteLine("#######################################");
                         Console.WriteLine("Yetersiz bakiye.");
+                        Console.WriteLine("#######################################");
                         break;
                     }
                     acc.WithdrawMoney(acc, amount);
                     break;
                 default:
                     break;
-
             }
         }
     }
