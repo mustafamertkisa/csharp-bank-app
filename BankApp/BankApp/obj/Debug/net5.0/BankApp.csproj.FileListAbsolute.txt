@@ -30,3 +30,11 @@ C:\Users\mmert\Desktop\BankApp\BankApp\bin\Debug\net5.0\BankApp.dll
 C:\Users\mmert\Desktop\BankApp\BankApp\bin\Debug\net5.0\ref\BankApp.dll
 C:\Users\mmert\Desktop\BankApp\BankApp\bin\Debug\net5.0\BankApp.pdb
 C:\Users\mmert\Desktop\BankApp\BankApp\obj\Debug\net5.0\BankApp.genruntimeconfig.cache
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.csproj.AssemblyReference.cache
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.AssemblyInfoInputs.cache
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.AssemblyInfo.cs
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.csproj.CoreCompileInputs.cache
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.dll
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\ref\BankApp.dll
+C:\Users\mmert\Desktop\csharp-bank-app\BankApp\BankApp\obj\Debug\net5.0\BankApp.pdb

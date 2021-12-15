@@ -33,7 +33,6 @@ namespace BankApp
                      "4 = Cari Hesap \n ******************** \n ");
 
                     var amount = Console.ReadLine();
-                    Console.WriteLine(AccChoice);
                     MakeOperation(acc, int.Parse(menuKey), amount);
                    
                     ShowDialogMenu(0);
