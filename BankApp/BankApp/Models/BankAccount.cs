@@ -30,12 +30,15 @@ namespace BankApp.Models
         //Özel hesap listesi
         public SpecialDepositAccount SpecialDepositAccounts { get; set; }
 
+        List<int> accountList = new List<int>(); //Hesap listesi
+
         public class ShortDepositAccount
         {
             public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
             public int MinRequiredMoney { get; set; }
             public int IncomeRatio { get; set; }
+            public int AccountNumber { get; set; }
         }
 
         public class SpecialDepositAccount
@@ -44,6 +47,7 @@ namespace BankApp.Models
             public decimal Balance { get; set; }
             public int MinRequiredMoney { get; set; }
             public int IncomeRatio { get; set; }
+            public int AccountNumber { get; set; }
         }
 
         public class LongDepositAccount
@@ -52,47 +56,66 @@ namespace BankApp.Models
             public decimal Balance { get; set; }
             public int MinRequiredMoney { get; set; }
             public int IncomeRatio { get; set; }
+            public int AccountNumber { get; set; }
         }
 
         public class CheckingAccount
         {
             public AccEnum AccountName { get; set; }
             public decimal Balance { get; set; }
+            public int AccountNumber { get; set; }
         }
 
         public void LoginAccount(BankAccount account, string identityNumber)
         {
+            Random rnd = new Random();
+            int randomNo = rnd.Next(10000000, 99999999);
+
             account.CheckingAccounts = new CheckingAccount();
             account.IdentityNumber = identityNumber;
             account.CheckingAccounts.Balance = 0;
             account.CheckingAccounts.AccountName = AccEnum.Cari;
+            account.CheckingAccounts.AccountNumber = randomNo;
+            accountList.Add(account.CheckingAccounts.AccountNumber);
         }
 
-        public void CreateAccount(BankAccount account, string amount)
+        public void CreateAccount(BankAccount account, string amount, string startAmount)
         {
+            Random rnd = new Random();
+            int randomNo = rnd.Next(10000000, 99999999);
+
             if (amount == "1")
             {
                 account.ShortDepositAccounts = new ShortDepositAccount();
                 account.ShortDepositAccounts.AccountName = AccEnum.KisaVadeli;
-                account.ShortDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.ShortDepositAccounts.Balance = Int32.Parse(startAmount);
                 account.ShortDepositAccounts.IncomeRatio = 15;
                 account.ShortDepositAccounts.MinRequiredMoney = 5000;
+                account.ShortDepositAccounts.AccountNumber = randomNo;
+                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+                accountList.Add(account.ShortDepositAccounts.AccountNumber);
             }
             else if (amount == "2")
             {
                 account.LongDepositAccounts = new LongDepositAccount();
                 account.LongDepositAccounts.AccountName = AccEnum.UzunVadeli;
-                account.LongDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.LongDepositAccounts.Balance = Int32.Parse(startAmount);
                 account.LongDepositAccounts.IncomeRatio = 17;
                 account.LongDepositAccounts.MinRequiredMoney = 10000;
+                account.LongDepositAccounts.AccountNumber = randomNo;
+                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+                accountList.Add(account.LongDepositAccounts.AccountNumber);
             }
             else if (amount == "3")
             {
                 account.SpecialDepositAccounts = new SpecialDepositAccount();
                 account.SpecialDepositAccounts.AccountName = AccEnum.Ozel;
-                account.SpecialDepositAccounts.Balance = account.CheckingAccounts.Balance;
+                account.SpecialDepositAccounts.Balance = Int32.Parse(startAmount);
                 account.SpecialDepositAccounts.IncomeRatio = 10;
                 account.SpecialDepositAccounts.MinRequiredMoney = 0;
+                account.SpecialDepositAccounts.AccountNumber = randomNo;
+                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+                accountList.Add(account.SpecialDepositAccounts.AccountNumber);
             }
         }
 
@@ -108,6 +131,25 @@ namespace BankApp.Models
             var money = 0;
             int.TryParse(amount, out money);
             account.CheckingAccounts.Balance -= money;
+        }
+
+        public void ShowAccountList()
+        {
+            foreach (int index in accountList)
+            {
+                Console.WriteLine(index);
+            }
+        }
+
+        public void ShowAccountInfo(BankAccount account)
+        {
+            Console.WriteLine($"*** Vadesiz Hesap Bilgileri *** \n \n Hesap adı: {account.CheckingAccounts.AccountName} \n Hesap numarası: {account.CheckingAccounts.AccountNumber} \n Hesap bakiyesi: {account.CheckingAccounts.Balance}");
+            Console.WriteLine("\n \n");
+            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.ShortDepositAccounts.AccountName} \n Hesap numarası: {account.ShortDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.ShortDepositAccounts.Balance}");
+            Console.WriteLine("\n \n");
+            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.LongDepositAccounts.AccountName} \n Hesap numarası: {account.LongDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.LongDepositAccounts.Balance}");
+            Console.WriteLine("\n \n");
+            Console.WriteLine($"*** Özel Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.SpecialDepositAccounts.AccountName} \n Hesap numarası: {account.SpecialDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.SpecialDepositAccounts.Balance}");
         }
     }
 }

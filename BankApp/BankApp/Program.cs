@@ -24,7 +24,7 @@ namespace BankApp
                     Console.WriteLine("1 = Kısa Vadeli Hesap \n ******************** \n " +
                      "2 = Uzun Vadeli Hesap \n ******************** \n " +
                      "3 = Özel Hesap");
-                    var amount = Console.ReadLine();
+                    var amount = Console.ReadLine(); //Burada amount'u hesap türü tercihi olarak almaktayız
                     MakeOperation(acc, int.Parse(menuKey), amount);
                     ShowDialogMenu(0);
                 }
@@ -35,6 +35,18 @@ namespace BankApp
                     Console.WriteLine("#######################################");
                     Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance}");
                     Console.WriteLine("#######################################");
+                    ShowDialogMenu(0);
+                }
+                else if (menuKey == "4")
+                {
+                    var amount = "AccList";
+                    MakeOperation(acc, int.Parse(menuKey), amount);
+                    ShowDialogMenu(0);
+                }
+                else if (menuKey == "5")
+                {
+                    var amount = "AccInfo";
+                    MakeOperation(acc, int.Parse(menuKey), amount);
                     ShowDialogMenu(0);
                 }
                 menuKey = Console.ReadLine();
@@ -50,8 +62,9 @@ namespace BankApp
                       "2 = Para Yatırma \n ******************** \n " +
                       "3 = Para Çekme \n ******************** \n " +
                       "4 = Hesap Listesi \n ******************** \n " +
-                      "5 = Hesap İşlem Kayıtları \n ******************** \n " +
-                      "6 = Çekiliş");
+                      "5 = Hesap Durum \n ******************** \n " +
+                      "6 = Hesap İşlem Kayıtları \n ******************** \n " +
+                      "7 = Çekiliş");
                     break;
                 case 1:
                     Console.WriteLine("#######################################");
@@ -68,6 +81,16 @@ namespace BankApp
                     Console.WriteLine("Çekmek istediğiniz tutarı giriniz:");
                     Console.WriteLine("#######################################");
                     break;
+                case 4:
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Hesap listesi:");
+                    Console.WriteLine("#######################################");
+                    break;
+                case 5:
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Hesap durum:");
+                    Console.WriteLine("#######################################");
+                    break;
                 default:
                     break;
             }
@@ -80,7 +103,9 @@ namespace BankApp
                 case 1:
                     if (amount == "1" && acc.CheckingAccounts.Balance >= 5000)
                     {
-                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
+                        var startAmount = Console.ReadLine();
+                        acc.CreateAccount(acc, amount, startAmount);
                         Console.WriteLine("#######################################");
                         Console.WriteLine("Kısa Vadeli hesap oluşturuldu.");
                         Console.WriteLine("#######################################");
@@ -88,7 +113,9 @@ namespace BankApp
                     } 
                     else if (amount == "2" && acc.CheckingAccounts.Balance >= 10000)
                     {
-                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
+                        var startAmount = Console.ReadLine();
+                        acc.CreateAccount(acc, amount, startAmount);
                         Console.WriteLine("#######################################");
                         Console.WriteLine("Uzun Vadeli hesap oluşturuldu.");
                         Console.WriteLine("#######################################");
@@ -96,7 +123,9 @@ namespace BankApp
                     }
                     else if (amount == "3" && acc.CheckingAccounts.Balance >= 0)
                     {
-                        acc.CreateAccount(acc, amount);
+                        Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
+                        var startAmount = Console.ReadLine();
+                        acc.CreateAccount(acc, amount, startAmount);
                         Console.WriteLine("#######################################");
                         Console.WriteLine("Özel hesap oluşturuldu.");
                         Console.WriteLine("#######################################");
@@ -125,6 +154,12 @@ namespace BankApp
                         break;
                     }
                     acc.WithdrawMoney(acc, amount);
+                    break;
+                case 4:
+                    acc.ShowAccountList();
+                    break;
+                case 5:
+                    acc.ShowAccountInfo(acc);
                     break;
                 default:
                     break;
