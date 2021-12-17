@@ -18,19 +18,21 @@ namespace BankApp.Models
     {
         public string IdentityNumber { get; set; }
 
-        //Cari
+        //Cari hesap
         public CheckingAccount CheckingAccounts { get; set; }
 
-        //Kısa vadeli hesap listesi
+        //Kısa vadeli hesap
         public ShortDepositAccount ShortDepositAccounts { get; set; }
 
-        //Uzun vadeli hesap listesi
+        //Uzun vadeli hesap
         public LongDepositAccount LongDepositAccounts { get; set; }
 
-        //Özel hesap listesi
+        //Özel hesap
         public SpecialDepositAccount SpecialDepositAccounts { get; set; }
 
         List<int> accountList = new List<int>(); //Hesap listesi
+
+        public AccEnum cariName;
 
         public class ShortDepositAccount
         {
@@ -68,6 +70,7 @@ namespace BankApp.Models
 
         public void LoginAccount(BankAccount account, string identityNumber)
         {
+            //Hesap no oluşturma
             Random rnd = new Random();
             int randomNo = rnd.Next(10000000, 99999999);
 
@@ -77,10 +80,13 @@ namespace BankApp.Models
             account.CheckingAccounts.AccountName = AccEnum.Cari;
             account.CheckingAccounts.AccountNumber = randomNo;
             accountList.Add(account.CheckingAccounts.AccountNumber);
+
+            cariName = account.CheckingAccounts.AccountName;
         }
 
         public void CreateAccount(BankAccount account, string amount, string startAmount)
         {
+            //Hesap no oluşturma
             Random rnd = new Random();
             int randomNo = rnd.Next(10000000, 99999999);
 
@@ -141,15 +147,9 @@ namespace BankApp.Models
             }
         }
 
-        public void ShowAccountInfo(BankAccount account)
+        public void ShowAccountInfo()
         {
-            Console.WriteLine($"*** Vadesiz Hesap Bilgileri *** \n \n Hesap adı: {account.CheckingAccounts.AccountName} \n Hesap numarası: {account.CheckingAccounts.AccountNumber} \n Hesap bakiyesi: {account.CheckingAccounts.Balance}");
-            Console.WriteLine("\n \n");
-            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.ShortDepositAccounts.AccountName} \n Hesap numarası: {account.ShortDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.ShortDepositAccounts.Balance}");
-            Console.WriteLine("\n \n");
-            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.LongDepositAccounts.AccountName} \n Hesap numarası: {account.LongDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.LongDepositAccounts.Balance}");
-            Console.WriteLine("\n \n");
-            Console.WriteLine($"*** Özel Vadeli Hesap Bilgileri *** \n \n Hesap adı: {account.SpecialDepositAccounts.AccountName} \n Hesap numarası: {account.SpecialDepositAccounts.AccountNumber} \n Hesap bakiyesi: {account.SpecialDepositAccounts.Balance}");
+            Console.WriteLine(cariName);
         }
     }
 }

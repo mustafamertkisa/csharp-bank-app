@@ -159,7 +159,7 @@ namespace BankApp
                     acc.ShowAccountList();
                     break;
                 case 5:
-                    acc.ShowAccountInfo(acc);
+                    acc.ShowAccountInfo();
                     break;
                 default:
                     break;
