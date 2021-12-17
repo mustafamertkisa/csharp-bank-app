@@ -32,7 +32,25 @@ namespace BankApp.Models
 
         List<int> accountList = new List<int>(); //Hesap listesi
 
-        public AccEnum cariName;
+        //Cari hesap info
+        public AccEnum checkingInfoName;
+        public int checkingInfoNumber;
+        public decimal checkingInfoBalance;
+
+        //Kısa vadeli hesap info
+        public AccEnum shortInfoName;
+        public int shortInfoNumber;
+        public decimal shortInfoBalance;
+
+        //Uzun vadeli hesap info
+        public AccEnum longInfoName;
+        public int longInfoNumber;
+        public decimal longInfoBalance;
+
+        //Özel hesap info
+        public AccEnum specialInfoName;
+        public int specialInfoNumber;
+        public decimal specialInfoBalance; 
 
         public class ShortDepositAccount
         {
@@ -81,7 +99,9 @@ namespace BankApp.Models
             account.CheckingAccounts.AccountNumber = randomNo;
             accountList.Add(account.CheckingAccounts.AccountNumber);
 
-            cariName = account.CheckingAccounts.AccountName;
+            checkingInfoName = account.CheckingAccounts.AccountName;
+            checkingInfoNumber = account.CheckingAccounts.AccountNumber;
+            checkingInfoBalance = account.CheckingAccounts.Balance;
         }
 
         public void CreateAccount(BankAccount account, string amount, string startAmount)
@@ -100,6 +120,10 @@ namespace BankApp.Models
                 account.ShortDepositAccounts.AccountNumber = randomNo;
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.ShortDepositAccounts.AccountNumber);
+
+                shortInfoName = account.ShortDepositAccounts.AccountName;
+                shortInfoNumber = account.ShortDepositAccounts.AccountNumber;
+                shortInfoBalance = account.ShortDepositAccounts.Balance;
             }
             else if (amount == "2")
             {
@@ -111,6 +135,10 @@ namespace BankApp.Models
                 account.LongDepositAccounts.AccountNumber = randomNo;
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.LongDepositAccounts.AccountNumber);
+
+                longInfoName = account.LongDepositAccounts.AccountName;
+                longInfoNumber = account.LongDepositAccounts.AccountNumber;
+                longInfoBalance = account.LongDepositAccounts.Balance;
             }
             else if (amount == "3")
             {
@@ -122,6 +150,10 @@ namespace BankApp.Models
                 account.SpecialDepositAccounts.AccountNumber = randomNo;
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.SpecialDepositAccounts.AccountNumber);
+
+                specialInfoName = account.SpecialDepositAccounts.AccountName;
+                specialInfoNumber = account.SpecialDepositAccounts.AccountNumber;
+                specialInfoBalance = account.SpecialDepositAccounts.Balance;
             }
         }
 
@@ -130,6 +162,7 @@ namespace BankApp.Models
             var money = 0;
             int.TryParse(amount, out money);
             account.CheckingAccounts.Balance += money;
+            checkingInfoBalance = account.CheckingAccounts.Balance;
         }
 
         public void WithdrawMoney(BankAccount account, string amount)
@@ -137,6 +170,7 @@ namespace BankApp.Models
             var money = 0;
             int.TryParse(amount, out money);
             account.CheckingAccounts.Balance -= money;
+            checkingInfoBalance = account.CheckingAccounts.Balance;
         }
 
         public void ShowAccountList()
@@ -149,7 +183,11 @@ namespace BankApp.Models
 
         public void ShowAccountInfo()
         {
-            Console.WriteLine(cariName);
+            Console.WriteLine($"*** Cari Hesap Bilgileri *** \n Hesap adı: {checkingInfoName} \n Hesap numarası: {checkingInfoNumber} \n Hesap bakiyesi: {checkingInfoBalance}");
+            Console.WriteLine("\n");
+            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n Hesap adı: {shortInfoName} \n Hesap numarası: {shortInfoNumber} \n Hesap bakiyesi: {shortInfoBalance}");
+            Console.WriteLine("\n");
+            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n Hesap adı: {longInfoName} \n Hesap numarası: {longInfoNumber} \n Hesap bakiyesi: {longInfoBalance}");
         }
     }
 }
