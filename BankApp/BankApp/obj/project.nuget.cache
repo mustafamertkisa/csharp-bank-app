@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G8Nw4Np4Bm7+JPps6QtHea8/xvYC5I5yUqzHt2Z2FfG99qxmTbd2T5rqK9WhDvGocNI1YNuuNyrJVcyONGnYew==",
+  "dgSpecHash": "D6Ey294IUipV9g0qBMgB5RfLaESq8P4IZvb7v8oMR+k1yNWac759lfmcuCTmlCiaGRWjRSBZhfdBo2O8cuZ/rg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mmert\\OneDrive\\Documents\\csharp-bank-app\\BankApp\\BankApp\\BankApp.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\mmert\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.13\\microsoft.netcore.app.host.win-x64.5.0.13.nupkg.sha512",
-    "C:\\Users\\mmert\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\5.0.0\\microsoft.aspnetcore.app.ref.5.0.0.nupkg.sha512",
-    "C:\\Users\\mmert\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\5.0.0\\microsoft.windowsdesktop.app.ref.5.0.0.nupkg.sha512",
-    "C:\\Users\\mmert\\.nuget\\packages\\microsoft.netcore.app.ref\\5.0.0\\microsoft.netcore.app.ref.5.0.0.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\mmert\\Desktop\\csharp-bank-app\\BankApp\\BankApp\\BankApp.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

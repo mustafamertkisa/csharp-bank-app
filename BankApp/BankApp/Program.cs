@@ -21,9 +21,7 @@ namespace BankApp
                 ShowDialogMenu(int.Parse(menuKey));
                 if (menuKey == "1")
                 {
-                    Console.WriteLine("1 = Kısa Vadeli Hesap \n ******************** \n " +
-                     "2 = Uzun Vadeli Hesap \n ******************** \n " +
-                     "3 = Özel Hesap");
+                    Console.WriteLine("\n1 = Kısa Vadeli Hesap [Yıllık kâr oranı: %15 | Min gereken tutar: 5000 TL]\n********************\n"+"2 = Uzun Vadeli Hesap [Yıllık kâr oranı: %17 | Min gereken tutar: 10000 TL]\n********************\n" + "3 = Özel Hesap [Yıllık kâr oranı: %10 | Min gereken tutar: 0 TL]");
                     var amount = Console.ReadLine(); //Burada amount'u hesap türü tercihi olarak almaktayız
                     MakeOperation(acc, int.Parse(menuKey), amount);
                     ShowDialogMenu(0);
@@ -33,7 +31,7 @@ namespace BankApp
                     var amount = Console.ReadLine();
                     MakeOperation(acc, int.Parse(menuKey), amount);
                     Console.WriteLine("#######################################");
-                    Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance}");
+                    Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance} TL");
                     Console.WriteLine("#######################################");
                     ShowDialogMenu(0);
                 }
@@ -58,13 +56,7 @@ namespace BankApp
             switch (menuKey)
             {
                 case 0:
-                    Console.WriteLine("1 = Hesap Açma \n ******************** \n " +
-                      "2 = Para Yatırma \n ******************** \n " +
-                      "3 = Para Çekme \n ******************** \n " +
-                      "4 = Hesap Listesi \n ******************** \n " +
-                      "5 = Hesap Durum \n ******************** \n " +
-                      "6 = Hesap İşlem Kayıtları \n ******************** \n " +
-                      "7 = Çekiliş");
+                    Console.WriteLine("\n1 = Hesap Açma\n********************\n"+"2 = Para Yatırma\n********************\n"+"3 = Para Çekme\n********************\n"+"4 = Hesap Listesi\n********************\n"+"5 = Hesap Durum\n******************** \n"+"6 = Hesap İşlem Kayıtları\n********************\n"+"7 = Çekiliş");
                     break;
                 case 1:
                     Console.WriteLine("#######################################");
@@ -89,6 +81,11 @@ namespace BankApp
                 case 5:
                     Console.WriteLine("#######################################");
                     Console.WriteLine("Hesap durum:");
+                    Console.WriteLine("#######################################");
+                    break;
+                case 6:
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Hesap işlem kayıtları:");
                     Console.WriteLine("#######################################");
                     break;
                 default:
@@ -135,7 +132,7 @@ namespace BankApp
                     {
                         Console.WriteLine("#######################################");
                         Console.WriteLine("Hata! Lütfen bakiyenizi kontrol ediniz.");
-                        Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance}");
+                        Console.WriteLine($"Bakiyeniz: {acc.CheckingAccounts.Balance} TL");
                         Console.WriteLine("#######################################");
                     }
                     break;
@@ -159,7 +156,13 @@ namespace BankApp
                     acc.ShowAccountList();
                     break;
                 case 5:
+                    Console.WriteLine("Kâr tutarı hesaplamak istediğiniz vade sürenizi (gün) giriniz:");
+                    int creditTime = Convert.ToInt32(Console.ReadLine());
+                    acc.ProfitAmount(acc, creditTime);
                     acc.ShowAccountInfo();
+                    break;
+                case 6:
+                    acc.TransactionHistory();
                     break;
                 default:
                     break;

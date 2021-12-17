@@ -41,16 +41,19 @@ namespace BankApp.Models
         public AccEnum shortInfoName;
         public int shortInfoNumber;
         public decimal shortInfoBalance;
+        public int shortInfoProfit;
 
         //Uzun vadeli hesap info
         public AccEnum longInfoName;
         public int longInfoNumber;
         public decimal longInfoBalance;
+        public int longInfoProfit;
 
         //Özel hesap info
         public AccEnum specialInfoName;
         public int specialInfoNumber;
-        public decimal specialInfoBalance; 
+        public decimal specialInfoBalance;
+        public int specialInfoProfit;
 
         public class ShortDepositAccount
         {
@@ -181,13 +184,37 @@ namespace BankApp.Models
             }
         }
 
+        public void ProfitAmount(BankAccount account, int creditTime)
+        {
+            //Bakiye 0 olmadığı sürece hesabın kar oranına göre "anapara*faiz oranı*vade (gün)/36500" formülü ile kar tutarı hesaplamasını yapar
+            if (shortInfoBalance > 0)
+            {
+                shortInfoProfit = Convert.ToInt32(account.ShortDepositAccounts.Balance) * account.ShortDepositAccounts.IncomeRatio * creditTime / 36500;
+            }
+            if (longInfoBalance > 0)
+            {
+                longInfoProfit = Convert.ToInt32(account.LongDepositAccounts.Balance) * account.LongDepositAccounts.IncomeRatio * creditTime / 36500;
+            }
+            if (specialInfoBalance > 0)
+            {
+                specialInfoProfit = Convert.ToInt32(account.SpecialDepositAccounts.Balance) * account.SpecialDepositAccounts.IncomeRatio * creditTime / 36500;
+            } 
+        }
+
         public void ShowAccountInfo()
         {
-            Console.WriteLine($"*** Cari Hesap Bilgileri *** \n Hesap adı: {checkingInfoName} \n Hesap numarası: {checkingInfoNumber} \n Hesap bakiyesi: {checkingInfoBalance}");
+            Console.WriteLine($"*** Cari Hesap Bilgileri *** \n Hesap adı: {checkingInfoName} \n Hesap numarası: {checkingInfoNumber} \n Hesap bakiyesi: {checkingInfoBalance} TL");
             Console.WriteLine("\n");
-            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n Hesap adı: {shortInfoName} \n Hesap numarası: {shortInfoNumber} \n Hesap bakiyesi: {shortInfoBalance}");
+            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n Hesap adı: {shortInfoName} \n Hesap numarası: {shortInfoNumber} \n Hesap bakiyesi: {shortInfoBalance} TL \n Kâr tutarı: {shortInfoProfit} TL");
             Console.WriteLine("\n");
-            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n Hesap adı: {longInfoName} \n Hesap numarası: {longInfoNumber} \n Hesap bakiyesi: {longInfoBalance}");
+            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n Hesap adı: {longInfoName} \n Hesap numarası: {longInfoNumber} \n Hesap bakiyesi: {longInfoBalance} TL \n Kâr tutarı: {longInfoProfit} TL");
+            Console.WriteLine("\n");
+            Console.WriteLine($"*** Özel Hesap Bilgileri *** \n Hesap adı: {specialInfoName} \n Hesap numarası: {specialInfoNumber} \n Hesap bakiyesi: {specialInfoBalance} TL \n Kâr tutarı: {specialInfoProfit} TL");
+        }
+
+        public void TransactionHistory()
+        {
+            Console.WriteLine("işlem kaydı");
         }
     }
 }
