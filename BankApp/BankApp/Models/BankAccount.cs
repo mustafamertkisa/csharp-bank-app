@@ -55,6 +55,10 @@ namespace BankApp.Models
         public decimal specialInfoBalance;
         public int specialInfoProfit;
 
+        //İşlem kayıtları & çekiliş
+        List<string> historyList = new List<string>(); //İşlem kayıtlarının listesi
+        List<int> drawList = new List<int>(); //Çekilişe katılacak hesapların listesi
+
         public class ShortDepositAccount
         {
             public AccEnum AccountName { get; set; }
@@ -124,6 +128,11 @@ namespace BankApp.Models
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.ShortDepositAccounts.AccountNumber);
 
+                if (Int32.Parse(startAmount) >= 1000)
+                {
+                    drawList.Add(account.ShortDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                }
+
                 shortInfoName = account.ShortDepositAccounts.AccountName;
                 shortInfoNumber = account.ShortDepositAccounts.AccountNumber;
                 shortInfoBalance = account.ShortDepositAccounts.Balance;
@@ -138,6 +147,11 @@ namespace BankApp.Models
                 account.LongDepositAccounts.AccountNumber = randomNo;
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.LongDepositAccounts.AccountNumber);
+
+                if (Int32.Parse(startAmount) >= 1000)
+                {
+                    drawList.Add(account.LongDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                }
 
                 longInfoName = account.LongDepositAccounts.AccountName;
                 longInfoNumber = account.LongDepositAccounts.AccountNumber;
@@ -154,6 +168,11 @@ namespace BankApp.Models
                 account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
                 accountList.Add(account.SpecialDepositAccounts.AccountNumber);
 
+                if (Int32.Parse(startAmount) >= 1000)
+                {
+                    drawList.Add(account.SpecialDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                }
+
                 specialInfoName = account.SpecialDepositAccounts.AccountName;
                 specialInfoNumber = account.SpecialDepositAccounts.AccountNumber;
                 specialInfoBalance = account.SpecialDepositAccounts.Balance;
@@ -164,16 +183,32 @@ namespace BankApp.Models
         {
             var money = 0;
             int.TryParse(amount, out money);
+
+            if (money >= 1000)
+            {
+                drawList.Add(account.CheckingAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+            }
+
             account.CheckingAccounts.Balance += money;
             checkingInfoBalance = account.CheckingAccounts.Balance;
+
+            historyList.Add($"\n{account.CheckingAccounts.AccountNumber} numaralı hesaptan {money} TL tutarında yatırma işlemi yapılmıştır."); //Hesap işlem kaydı
         }
 
         public void WithdrawMoney(BankAccount account, string amount)
         {
             var money = 0;
             int.TryParse(amount, out money);
+
+            if (money >= 1000)
+            {
+                drawList.Add(account.CheckingAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+            }
+
             account.CheckingAccounts.Balance -= money;
             checkingInfoBalance = account.CheckingAccounts.Balance;
+
+            historyList.Add($"\n{account.CheckingAccounts.AccountNumber} numaralı hesaptan {money} TL tutarında çekim işlemi yapılmıştır."); //Hesap işlem kaydı
         }
 
         public void ShowAccountList()
@@ -198,7 +233,7 @@ namespace BankApp.Models
             if (specialInfoBalance > 0)
             {
                 specialInfoProfit = Convert.ToInt32(account.SpecialDepositAccounts.Balance) * account.SpecialDepositAccounts.IncomeRatio * creditTime / 36500;
-            } 
+            }
         }
 
         public void ShowAccountInfo()
@@ -214,7 +249,30 @@ namespace BankApp.Models
 
         public void TransactionHistory()
         {
-            Console.WriteLine("işlem kaydı");
+            foreach (string index in historyList)
+            {
+                Console.WriteLine(index);
+            }
+        }
+
+        public void MakeDraw()
+        {
+            int drawListCount = drawList.Count();
+
+            if(drawListCount != 0) 
+            {
+                Random rnd = new Random();
+                int winAccNum = rnd.Next(0, drawListCount);
+                var winnerAcc = drawList.ElementAt(winAccNum);
+
+                Console.WriteLine($"\n*** Çekilişimizi kazanan {winnerAcc} numaralı hesabımızı tebrik ederiz. ***");
+                historyList.Add($"\nÇekilişi {winnerAcc} numaralı hesap kazanmıştır."); //Hesap işlem kaydı
+                drawList.Clear();
+            }
+            else
+            {
+                Console.WriteLine("\nSon çekilişin ardından yeni bir çekiliş için yeterli işlem kaydı bulunmamaktadır!");
+            }
         }
     }
 }

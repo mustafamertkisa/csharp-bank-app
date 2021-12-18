@@ -47,6 +47,18 @@ namespace BankApp
                     MakeOperation(acc, int.Parse(menuKey), amount);
                     ShowDialogMenu(0);
                 }
+                else if (menuKey == "6")
+                {
+                    var amount = "history";
+                    MakeOperation(acc, int.Parse(menuKey), amount);
+                    ShowDialogMenu(0);
+                }
+                else if (menuKey == "7")
+                {
+                    var amount = "draw";
+                    MakeOperation(acc, int.Parse(menuKey), amount);
+                    ShowDialogMenu(0);
+                }
                 menuKey = Console.ReadLine();
             }
         }
@@ -86,6 +98,11 @@ namespace BankApp
                 case 6:
                     Console.WriteLine("#######################################");
                     Console.WriteLine("Hesap işlem kayıtları:");
+                    Console.WriteLine("#######################################");
+                    break;
+                case 7:
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Çekiliş:");
                     Console.WriteLine("#######################################");
                     break;
                 default:
@@ -163,6 +180,9 @@ namespace BankApp
                     break;
                 case 6:
                     acc.TransactionHistory();
+                    break;
+                case 7:
+                    acc.MakeDraw();
                     break;
                 default:
                     break;
