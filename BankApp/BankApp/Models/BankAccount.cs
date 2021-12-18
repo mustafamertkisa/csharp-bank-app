@@ -30,7 +30,7 @@ namespace BankApp.Models
         //Özel hesap
         public SpecialDepositAccount SpecialDepositAccounts { get; set; }
 
-        List<int> accountList = new List<int>(); //Hesap listesi
+        List<string> accountList = new List<string>(); //Hesap listesi
 
         //Cari hesap info
         public AccEnum checkingInfoName;
@@ -104,7 +104,8 @@ namespace BankApp.Models
             account.CheckingAccounts.Balance = 0;
             account.CheckingAccounts.AccountName = AccEnum.Cari;
             account.CheckingAccounts.AccountNumber = randomNo;
-            accountList.Add(account.CheckingAccounts.AccountNumber);
+
+            accountList.Add($"\nHesap adı & numarası: {account.CheckingAccounts.AccountName} - {account.CheckingAccounts.AccountNumber}"); //Hesap listesi
 
             checkingInfoName = account.CheckingAccounts.AccountName;
             checkingInfoNumber = account.CheckingAccounts.AccountNumber;
@@ -117,65 +118,103 @@ namespace BankApp.Models
             Random rnd = new Random();
             int randomNo = rnd.Next(10000000, 99999999);
 
-            if (amount == "1")
+            if (amount == "1") //Kısa vadeli
             {
-                account.ShortDepositAccounts = new ShortDepositAccount();
-                account.ShortDepositAccounts.AccountName = AccEnum.KisaVadeli;
-                account.ShortDepositAccounts.Balance = Int32.Parse(startAmount);
-                account.ShortDepositAccounts.IncomeRatio = 15;
-                account.ShortDepositAccounts.MinRequiredMoney = 5000;
-                account.ShortDepositAccounts.AccountNumber = randomNo;
-                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
-                accountList.Add(account.ShortDepositAccounts.AccountNumber);
-
-                if (Int32.Parse(startAmount) >= 1000)
+                if (Int32.Parse(startAmount) >= 5000) //Min tutar kontrolü
                 {
-                    drawList.Add(account.ShortDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
-                }
+                    account.ShortDepositAccounts = new ShortDepositAccount();
+                    account.ShortDepositAccounts.AccountName = AccEnum.KisaVadeli;
+                    account.ShortDepositAccounts.Balance = Int32.Parse(startAmount);
+                    account.ShortDepositAccounts.IncomeRatio = 15;
+                    account.ShortDepositAccounts.MinRequiredMoney = 5000;
+                    account.ShortDepositAccounts.AccountNumber = randomNo;
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
 
-                shortInfoName = account.ShortDepositAccounts.AccountName;
-                shortInfoNumber = account.ShortDepositAccounts.AccountNumber;
-                shortInfoBalance = account.ShortDepositAccounts.Balance;
+                    accountList.Add($"\nHesap adı & numarası: {account.ShortDepositAccounts.AccountName} - {account.ShortDepositAccounts.AccountNumber}"); //Hesap listesi
+
+                    if (Int32.Parse(startAmount) >= 1000)
+                    {
+                        drawList.Add(account.ShortDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                    }
+
+                    shortInfoName = account.ShortDepositAccounts.AccountName;
+                    shortInfoNumber = account.ShortDepositAccounts.AccountNumber;
+                    shortInfoBalance = account.ShortDepositAccounts.Balance;
+
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Kısa Vadeli hesap oluşturuldu.");
+                    Console.WriteLine("#######################################");
+                }
+                else
+                {
+                    Console.WriteLine("\nBelirttiğiniz hesap açılış tutarı gereken asgari miktarın altındadır!");
+                }
             }
-            else if (amount == "2")
+            else if (amount == "2") //Uzun vadeli
             {
-                account.LongDepositAccounts = new LongDepositAccount();
-                account.LongDepositAccounts.AccountName = AccEnum.UzunVadeli;
-                account.LongDepositAccounts.Balance = Int32.Parse(startAmount);
-                account.LongDepositAccounts.IncomeRatio = 17;
-                account.LongDepositAccounts.MinRequiredMoney = 10000;
-                account.LongDepositAccounts.AccountNumber = randomNo;
-                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
-                accountList.Add(account.LongDepositAccounts.AccountNumber);
-
-                if (Int32.Parse(startAmount) >= 1000)
+                if (Int32.Parse(startAmount) >= 10000) //Min tutar kontrolü
                 {
-                    drawList.Add(account.LongDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                    account.LongDepositAccounts = new LongDepositAccount();
+                    account.LongDepositAccounts.AccountName = AccEnum.UzunVadeli;
+                    account.LongDepositAccounts.Balance = Int32.Parse(startAmount);
+                    account.LongDepositAccounts.IncomeRatio = 17;
+                    account.LongDepositAccounts.MinRequiredMoney = 10000;
+                    account.LongDepositAccounts.AccountNumber = randomNo;
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+
+                    accountList.Add($"\nHesap adı & numarası: {account.LongDepositAccounts.AccountName} - {account.LongDepositAccounts.AccountNumber}"); //Hesap listesi
+
+                    if (Int32.Parse(startAmount) >= 1000)
+                    {
+                        drawList.Add(account.LongDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                    }
+
+                    longInfoName = account.LongDepositAccounts.AccountName;
+                    longInfoNumber = account.LongDepositAccounts.AccountNumber;
+                    longInfoBalance = account.LongDepositAccounts.Balance;
+
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Uzun Vadeli hesap oluşturuldu.");
+                    Console.WriteLine("#######################################");
+                }
+                else
+                {
+                    Console.WriteLine("\nBelirttiğiniz hesap açılış tutarı gereken asgari miktarın altındadır!");
                 }
 
-                longInfoName = account.LongDepositAccounts.AccountName;
-                longInfoNumber = account.LongDepositAccounts.AccountNumber;
-                longInfoBalance = account.LongDepositAccounts.Balance;
+
             }
-            else if (amount == "3")
+            else if (amount == "3") //Özel
             {
-                account.SpecialDepositAccounts = new SpecialDepositAccount();
-                account.SpecialDepositAccounts.AccountName = AccEnum.Ozel;
-                account.SpecialDepositAccounts.Balance = Int32.Parse(startAmount);
-                account.SpecialDepositAccounts.IncomeRatio = 10;
-                account.SpecialDepositAccounts.MinRequiredMoney = 0;
-                account.SpecialDepositAccounts.AccountNumber = randomNo;
-                account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
-                accountList.Add(account.SpecialDepositAccounts.AccountNumber);
-
-                if (Int32.Parse(startAmount) >= 1000)
+                if (Int32.Parse(startAmount) >= 0) //Min tutar kontrolü
                 {
-                    drawList.Add(account.SpecialDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
-                }
+                    account.SpecialDepositAccounts = new SpecialDepositAccount();
+                    account.SpecialDepositAccounts.AccountName = AccEnum.Ozel;
+                    account.SpecialDepositAccounts.Balance = Int32.Parse(startAmount);
+                    account.SpecialDepositAccounts.IncomeRatio = 10;
+                    account.SpecialDepositAccounts.MinRequiredMoney = 0;
+                    account.SpecialDepositAccounts.AccountNumber = randomNo;
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
 
-                specialInfoName = account.SpecialDepositAccounts.AccountName;
-                specialInfoNumber = account.SpecialDepositAccounts.AccountNumber;
-                specialInfoBalance = account.SpecialDepositAccounts.Balance;
+                    accountList.Add($"\nHesap adı & numarası: {account.SpecialDepositAccounts.AccountName} - {account.SpecialDepositAccounts.AccountNumber}"); //Hesap listesi
+
+                    if (Int32.Parse(startAmount) >= 1000)
+                    {
+                        drawList.Add(account.SpecialDepositAccounts.AccountNumber); //Hesabın çekiliş listesine eklenmesi
+                    }
+
+                    specialInfoName = account.SpecialDepositAccounts.AccountName;
+                    specialInfoNumber = account.SpecialDepositAccounts.AccountNumber;
+                    specialInfoBalance = account.SpecialDepositAccounts.Balance;
+
+                    Console.WriteLine("#######################################");
+                    Console.WriteLine("Özel hesap oluşturuldu.");
+                    Console.WriteLine("#######################################");
+                }
+                else
+                {
+                    Console.WriteLine("\nBelirttiğiniz hesap açılış tutarı gereken asgari miktarın altındadır!");
+                }
             }
         }
 
@@ -192,7 +231,7 @@ namespace BankApp.Models
             account.CheckingAccounts.Balance += money;
             checkingInfoBalance = account.CheckingAccounts.Balance;
 
-            historyList.Add($"\n{account.CheckingAccounts.AccountNumber} numaralı hesaptan {money} TL tutarında yatırma işlemi yapılmıştır."); //Hesap işlem kaydı
+            historyList.Add($"\n{account.CheckingAccounts.AccountNumber} numaralı hesaba {money} TL tutarında yatırma işlemi yapılmıştır."); //Hesap işlem kaydı
         }
 
         public void WithdrawMoney(BankAccount account, string amount)
@@ -213,7 +252,7 @@ namespace BankApp.Models
 
         public void ShowAccountList()
         {
-            foreach (int index in accountList)
+            foreach (string index in accountList)
             {
                 Console.WriteLine(index);
             }
@@ -238,13 +277,13 @@ namespace BankApp.Models
 
         public void ShowAccountInfo()
         {
-            Console.WriteLine($"*** Cari Hesap Bilgileri *** \n Hesap adı: {checkingInfoName} \n Hesap numarası: {checkingInfoNumber} \n Hesap bakiyesi: {checkingInfoBalance} TL");
+            Console.WriteLine($"*** Cari Hesap Bilgileri ***\nHesap adı: {checkingInfoName}\nHesap numarası: {checkingInfoNumber}\nHesap bakiyesi: {checkingInfoBalance} TL");
             Console.WriteLine("\n");
-            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri *** \n Hesap adı: {shortInfoName} \n Hesap numarası: {shortInfoNumber} \n Hesap bakiyesi: {shortInfoBalance} TL \n Kâr tutarı: {shortInfoProfit} TL");
+            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri ***\nHesap adı: {shortInfoName}\nHesap numarası: {shortInfoNumber}\nHesap bakiyesi: {shortInfoBalance} TL\nKâr tutarı: {shortInfoProfit} TL");
             Console.WriteLine("\n");
-            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri *** \n Hesap adı: {longInfoName} \n Hesap numarası: {longInfoNumber} \n Hesap bakiyesi: {longInfoBalance} TL \n Kâr tutarı: {longInfoProfit} TL");
+            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri ***\nHesap adı: {longInfoName}\nHesap numarası: {longInfoNumber}\nHesap bakiyesi: {longInfoBalance} TL\nKâr tutarı: {longInfoProfit} TL");
             Console.WriteLine("\n");
-            Console.WriteLine($"*** Özel Hesap Bilgileri *** \n Hesap adı: {specialInfoName} \n Hesap numarası: {specialInfoNumber} \n Hesap bakiyesi: {specialInfoBalance} TL \n Kâr tutarı: {specialInfoProfit} TL");
+            Console.WriteLine($"*** Özel Hesap Bilgileri ***\nHesap adı: {specialInfoName}\nHesap numarası: {specialInfoNumber}\nHesap bakiyesi: {specialInfoBalance} TL\nKâr tutarı: {specialInfoProfit} TL");
         }
 
         public void TransactionHistory()

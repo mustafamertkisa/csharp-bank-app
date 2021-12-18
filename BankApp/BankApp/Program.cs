@@ -7,7 +7,7 @@ namespace BankApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("^^ Hoşgeldiniz ^^ \n Giriş yapmak için TC Kimlik Numaranızı giriniz:");
+            Console.WriteLine("^^ Hoşgeldiniz ^^\nGiriş yapmak için TC Kimlik Numaranızı giriniz:");
             var identityNumber = Console.ReadLine();
             var acc = new BankAccount();
             acc.LoginAccount(acc, identityNumber);
@@ -21,7 +21,7 @@ namespace BankApp
                 ShowDialogMenu(int.Parse(menuKey));
                 if (menuKey == "1")
                 {
-                    Console.WriteLine("\n1 = Kısa Vadeli Hesap [Yıllık kâr oranı: %15 | Min gereken tutar: 5000 TL]\n********************\n"+"2 = Uzun Vadeli Hesap [Yıllık kâr oranı: %17 | Min gereken tutar: 10000 TL]\n********************\n" + "3 = Özel Hesap [Yıllık kâr oranı: %10 | Min gereken tutar: 0 TL]");
+                    Console.WriteLine("\n1 = Kısa Vadeli Hesap [Yıllık kâr oranı: %15 | Min gereken tutar: 5000 TL]\n****************************************\n" + "2 = Uzun Vadeli Hesap [Yıllık kâr oranı: %17 | Min gereken tutar: 10000 TL]\n****************************************\n" + "3 = Özel Hesap [Yıllık kâr oranı: %10 | Min gereken tutar: 0 TL]");
                     var amount = Console.ReadLine(); //Burada amount'u hesap türü tercihi olarak almaktayız
                     MakeOperation(acc, int.Parse(menuKey), amount);
                     ShowDialogMenu(0);
@@ -120,9 +120,6 @@ namespace BankApp
                         Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
                         var startAmount = Console.ReadLine();
                         acc.CreateAccount(acc, amount, startAmount);
-                        Console.WriteLine("#######################################");
-                        Console.WriteLine("Kısa Vadeli hesap oluşturuldu.");
-                        Console.WriteLine("#######################################");
                         break;
                     } 
                     else if (amount == "2" && acc.CheckingAccounts.Balance >= 10000)
@@ -130,9 +127,6 @@ namespace BankApp
                         Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
                         var startAmount = Console.ReadLine();
                         acc.CreateAccount(acc, amount, startAmount);
-                        Console.WriteLine("#######################################");
-                        Console.WriteLine("Uzun Vadeli hesap oluşturuldu.");
-                        Console.WriteLine("#######################################");
                         break;
                     }
                     else if (amount == "3" && acc.CheckingAccounts.Balance >= 0)
@@ -140,9 +134,6 @@ namespace BankApp
                         Console.WriteLine("Oluşturacağınız hesabınıza aktarmak istediğiniz tutarı giriniz:");
                         var startAmount = Console.ReadLine();
                         acc.CreateAccount(acc, amount, startAmount);
-                        Console.WriteLine("#######################################");
-                        Console.WriteLine("Özel hesap oluşturuldu.");
-                        Console.WriteLine("#######################################");
                         break;
                     }
                     else
