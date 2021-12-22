@@ -128,7 +128,9 @@ namespace BankApp.Models
                     account.ShortDepositAccounts.IncomeRatio = 15;
                     account.ShortDepositAccounts.MinRequiredMoney = 5000;
                     account.ShortDepositAccounts.AccountNumber = randomNo;
-                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount); // vadesiz hesap bakiye güncelleme
+                    checkingInfoBalance = account.CheckingAccounts.Balance;
 
                     accountList.Add($"\nHesap adı & numarası: {account.ShortDepositAccounts.AccountName} - {account.ShortDepositAccounts.AccountNumber}"); //Hesap listesi
 
@@ -140,6 +142,8 @@ namespace BankApp.Models
                     shortInfoName = account.ShortDepositAccounts.AccountName;
                     shortInfoNumber = account.ShortDepositAccounts.AccountNumber;
                     shortInfoBalance = account.ShortDepositAccounts.Balance;
+
+                    historyList.Add($"\n{startAmount} TL ile {account.ShortDepositAccounts.AccountNumber} numaralı hesaba ait kısa vadeli hesap oluşturulmuştur."); //Hesap işlem kaydı
 
                     Console.WriteLine("#######################################");
                     Console.WriteLine("Kısa Vadeli hesap oluşturuldu.");
@@ -160,7 +164,9 @@ namespace BankApp.Models
                     account.LongDepositAccounts.IncomeRatio = 17;
                     account.LongDepositAccounts.MinRequiredMoney = 10000;
                     account.LongDepositAccounts.AccountNumber = randomNo;
-                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount); // vadesiz hesap bakiye güncelleme
+                    checkingInfoBalance = account.CheckingAccounts.Balance;
 
                     accountList.Add($"\nHesap adı & numarası: {account.LongDepositAccounts.AccountName} - {account.LongDepositAccounts.AccountNumber}"); //Hesap listesi
 
@@ -172,6 +178,8 @@ namespace BankApp.Models
                     longInfoName = account.LongDepositAccounts.AccountName;
                     longInfoNumber = account.LongDepositAccounts.AccountNumber;
                     longInfoBalance = account.LongDepositAccounts.Balance;
+
+                    historyList.Add($"\n{startAmount} TL ile {account.LongDepositAccounts.AccountNumber} numaralı hesaba ait uzun vadeli hesap oluşturulmuştur."); //Hesap işlem kaydı
 
                     Console.WriteLine("#######################################");
                     Console.WriteLine("Uzun Vadeli hesap oluşturuldu.");
@@ -194,7 +202,9 @@ namespace BankApp.Models
                     account.SpecialDepositAccounts.IncomeRatio = 10;
                     account.SpecialDepositAccounts.MinRequiredMoney = 0;
                     account.SpecialDepositAccounts.AccountNumber = randomNo;
-                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount);
+
+                    account.CheckingAccounts.Balance = account.CheckingAccounts.Balance - Int32.Parse(startAmount); // vadesiz hesap bakiye güncelleme
+                    checkingInfoBalance = account.CheckingAccounts.Balance;
 
                     accountList.Add($"\nHesap adı & numarası: {account.SpecialDepositAccounts.AccountName} - {account.SpecialDepositAccounts.AccountNumber}"); //Hesap listesi
 
@@ -206,6 +216,8 @@ namespace BankApp.Models
                     specialInfoName = account.SpecialDepositAccounts.AccountName;
                     specialInfoNumber = account.SpecialDepositAccounts.AccountNumber;
                     specialInfoBalance = account.SpecialDepositAccounts.Balance;
+
+                    historyList.Add($"\n{startAmount} TL ile {account.SpecialDepositAccounts.AccountNumber} numaralı hesaba ait özel hesap oluşturulmuştur."); //Hesap işlem kaydı
 
                     Console.WriteLine("#######################################");
                     Console.WriteLine("Özel hesap oluşturuldu.");
@@ -277,13 +289,10 @@ namespace BankApp.Models
 
         public void ShowAccountInfo()
         {
-            Console.WriteLine($"*** Cari Hesap Bilgileri ***\nHesap adı: {checkingInfoName}\nHesap numarası: {checkingInfoNumber}\nHesap bakiyesi: {checkingInfoBalance} TL");
-            Console.WriteLine("\n");
-            Console.WriteLine($"*** Kısa Vadeli Hesap Bilgileri ***\nHesap adı: {shortInfoName}\nHesap numarası: {shortInfoNumber}\nHesap bakiyesi: {shortInfoBalance} TL\nKâr tutarı: {shortInfoProfit} TL");
-            Console.WriteLine("\n");
-            Console.WriteLine($"*** Uzun Vadeli Hesap Bilgileri ***\nHesap adı: {longInfoName}\nHesap numarası: {longInfoNumber}\nHesap bakiyesi: {longInfoBalance} TL\nKâr tutarı: {longInfoProfit} TL");
-            Console.WriteLine("\n");
-            Console.WriteLine($"*** Özel Hesap Bilgileri ***\nHesap adı: {specialInfoName}\nHesap numarası: {specialInfoNumber}\nHesap bakiyesi: {specialInfoBalance} TL\nKâr tutarı: {specialInfoProfit} TL");
+            Console.WriteLine($"\n*** Cari Hesap Bilgileri ***\nHesap adı: {checkingInfoName}\nHesap numarası: {checkingInfoNumber}\nHesap bakiyesi: {checkingInfoBalance} TL");
+            Console.WriteLine($"\n*** Kısa Vadeli Hesap Bilgileri ***\nHesap adı: {shortInfoName}\nHesap numarası: {shortInfoNumber}\nHesap bakiyesi: {shortInfoBalance} TL\n30 günlük kâr tutarı: {shortInfoProfit} TL");
+            Console.WriteLine($"\n*** Uzun Vadeli Hesap Bilgileri ***\nHesap adı: {longInfoName}\nHesap numarası: {longInfoNumber}\nHesap bakiyesi: {longInfoBalance} TL\n30 günlük kâr tutarı: {longInfoProfit} TL");
+            Console.WriteLine($"\n*** Özel Hesap Bilgileri ***\nHesap adı: {specialInfoName}\nHesap numarası: {specialInfoNumber}\nHesap bakiyesi: {specialInfoBalance} TL\n30 günlük kâr tutarı: {specialInfoProfit} TL");
         }
 
         public void TransactionHistory()
@@ -314,4 +323,3 @@ namespace BankApp.Models
             }
         }
     }
-}

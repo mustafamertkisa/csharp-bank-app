@@ -7,7 +7,7 @@ namespace BankApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("^^ Hoşgeldiniz ^^\nGiriş yapmak için TC Kimlik Numaranızı giriniz:");
+            Console.WriteLine("^^ Banka Uygulamamıza Hoş Geldiniz ^^\n\nGiriş yapmak için TC Kimlik Numaranızı giriniz:");
             var identityNumber = Console.ReadLine();
             var acc = new BankAccount();
             acc.LoginAccount(acc, identityNumber);
@@ -165,7 +165,7 @@ namespace BankApp
                     break;
                 case 5:
                     Console.WriteLine("Kâr tutarı hesaplamak istediğiniz vade sürenizi (gün) giriniz:");
-                    int creditTime = Convert.ToInt32(Console.ReadLine());
+                    int creditTime = 30;
                     acc.ProfitAmount(acc, creditTime);
                     acc.ShowAccountInfo();
                     break;
