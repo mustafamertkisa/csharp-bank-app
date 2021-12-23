@@ -307,7 +307,7 @@ namespace BankApp.Models
         {
             int drawListCount = drawList.Count();
 
-            if(drawListCount != 0) 
+            if (drawListCount != 0)
             {
                 Random rnd = new Random();
                 int winAccNum = rnd.Next(0, drawListCount);
@@ -323,3 +323,4 @@ namespace BankApp.Models
             }
         }
     }
+}
