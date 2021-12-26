@@ -68,7 +68,7 @@ namespace BankApp
             switch (menuKey)
             {
                 case 0:
-                    Console.WriteLine("\n1 = Hesap Açma\n********************\n"+"2 = Para Yatırma\n********************\n"+"3 = Para Çekme\n********************\n"+"4 = Hesap Listesi\n********************\n"+"5 = Hesap Durum\n******************** \n"+"6 = Hesap İşlem Kayıtları\n********************\n"+"7 = Çekiliş\n********************\n"+"8 = Çıkış Yap");
+                    Console.WriteLine("\n1 = Hesap Açma\n********************\n"+"2 = Para Yatırma\n********************\n"+"3 = Para Çekme\n********************\n"+"4 = Hesap Listesi\n********************\n"+"5 = Hesap Durum\n******************** \n"+"6 = İşlem Kayıtları\n********************\n"+"7 = Çekiliş\n********************\n"+"8 = Çıkış Yap");
                     break;
                 case 1:
                     Console.WriteLine("#######################################");
